@@ -1,0 +1,45 @@
+version: "3.9"
+services:
+  service-postgres15:
+    image: postgres:15-alpine
+    restart: always
+    volumes:
+      - /volumenes/vol_postgresql:/var/lib/postgresql/data
+    environment: 
+      POSTGRES_USER: hashticket
+      POSTGRES_DB: tickets
+      POSTGRES_PASSWORD: 12345678
+      PGDATA: /var/lib/postgresql/data/pgdata
+  server-discovery:
+    image: localhost:5000/server-discovery:latest
+    ports:
+     - "1111:1111"
+    environment:
+     - PROFILE_JAR=prod
+  service-gateway:
+    image: localhost:5000/server-gateway:latest
+    ports:
+     - "5004:5004"
+    environment:
+     - PROFILE_JAR=prod
+     - SERVER_DISCOVERY=server-discovery
+    depends_on:
+     - service-postgres15
+     - server-discovery
+  service-acceso-datos:
+    image: localhost:5000/server-acceso-datos:latest
+    environment:
+     - PROFILE_JAR=prod
+     - SERVER_DISCOVERY=server-discovery
+     - SERVER_BD=service-postgres15
+    depends_on:
+     - service-postgres15
+     - server-discovery
+  service-business:
+    image: localhost:5000/server-business:latest
+    environment:
+     - PROFILE_JAR=prod
+     - SERVER_DISCOVERY=server-discovery
+    depends_on:
+     - service-postgres15
+     - server-discovery
