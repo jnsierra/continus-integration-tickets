@@ -43,3 +43,5 @@ services:
     depends_on:
      - service-postgres15
      - server-discovery
+    volumes:
+     - /volumenes/vol_repository:/opt/repository

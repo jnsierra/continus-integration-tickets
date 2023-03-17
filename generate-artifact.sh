@@ -17,8 +17,6 @@ pkill -9 java
 echo -e ${RED}'[DEBUG]'${NC} ' Git pull proyect:' $1
 git -C $1 pull
 
-echo -e ${RED}'[DEBUG]'${NC}' Bajo el servicio de docker-compose '
-docker-compose stop
 echo -e ${RED}'[DEBUG]'${NC} ' Clean and install proyect with git '
 
 M2_HOME='/opt/apache-maven-3.9.0'
@@ -33,6 +31,11 @@ cp ${PATH_PROYECT}/api-service-discovery/target/api-service-discovery.jar ./serv
 cp ${PATH_PROYECT}/api-gateway/target/api-gateway.jar ./server-gateway/jar/
 cp ${PATH_PROYECT}/api-acceso-datos/target/api-acceso-datos-0.0.1-SNAPSHOT.jar ./server-acceso-datos/jar/
 cp ${PATH_PROYECT}/api-business/target/api-business-0.0.1-SNAPSHOT.jar ./server-business/jar/
+
+echo -e ${RED}'[DEBUG]'${NC}' Bajo el servicio de docker-compose '
+docker-compose stop
+echo -e ${RED}'[DEBUG]'${NC}' Borro los contenedores'
+docker-compose rm -f
 
 echo -e ${RED}'[DEBUG]'${NC}' Delete images'
 docker rmi localhost:5000/server-discovery:latest
