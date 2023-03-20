@@ -40,6 +40,18 @@ services:
     environment:
      - PROFILE_JAR=prod
      - SERVER_DISCOVERY=server-discovery
+     - SERVER_DATOS=service-acceso-datos
+    depends_on:
+     - service-postgres15
+     - server-discovery
+    volumes:
+     - /volumenes/vol_repository:/opt/repository
+  service-public-user:
+    image: localhost:5000/server-public-user:latest
+    environment:
+     - PROFILE_JAR=prod
+     - SERVER_DISCOVERY=server-discovery
+     - SERVER_BD=service-postgres15
     depends_on:
      - service-postgres15
      - server-discovery

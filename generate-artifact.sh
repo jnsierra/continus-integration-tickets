@@ -26,11 +26,13 @@ export PATH
 echo -e ${RED}'[DEBUG]'${NC}' Clean proyect'
 mvn -f ${PATH_PROYECT}/pom.xml clean
 mvn -f ${PATH_PROYECT}/pom.xml install
+
 echo -e ${RED}'[DEBUG]'${NC}' Copy jar services '
 cp ${PATH_PROYECT}/api-service-discovery/target/api-service-discovery.jar ./server-discovery/jar/
 cp ${PATH_PROYECT}/api-gateway/target/api-gateway.jar ./server-gateway/jar/
 cp ${PATH_PROYECT}/api-acceso-datos/target/api-acceso-datos-0.0.1-SNAPSHOT.jar ./server-acceso-datos/jar/
 cp ${PATH_PROYECT}/api-business/target/api-business-0.0.1-SNAPSHOT.jar ./server-business/jar/
+cp ${PATH_PROYECT}/api-public-users/target/api-public-users-0.0.1-SNAPSHOT.jar ./server-public-user/jar/
 
 echo -e ${RED}'[DEBUG]'${NC}' Bajo el servicio de docker-compose '
 docker-compose stop
@@ -42,6 +44,7 @@ docker rmi localhost:5000/server-discovery:latest
 docker rmi localhost:5000/server-gateway:latest
 docker rmi localhost:5000/server-acceso-datos:latest
 docker rmi localhost:5000/server-business:latest
+docker rmi localhost:5000/server-public-user:latest
 
 echo -e ${RED}'[DEBUG]'${NC}' Build images '
 cd server-discovery
@@ -54,6 +57,15 @@ echo -e ${RED}'[DEBUG]'${NC}' Construir imagen de acceso a datos'
 cd server-acceso-datos
 docker build -t "localhost:5000/server-acceso-datos:latest" .
 cd ..
+
+echo -e ${RED}'[DEBUG]'${NC}' Construccion imagen de public '
+echo -e ${RED}'*****************************'${NC}
+pwd
+echo -e ${RED}'*****************************'${NC}
+cd server-public-user
+docker build -t "localhost:5000/server-public-user:latest" .
+cd ..
+
 echo -e ${RED}'[DEBUG]'${NC}' Construccion imagen de business '
 echo -e ${RED}'*****************************'${NC}
 pwd
@@ -68,6 +80,8 @@ docker push localhost:5000/server-discovery:latest
 docker push localhost:5000/server-gateway:latest
 docker push localhost:5000/server-acceso-datos:latest
 docker push localhost:5000/server-business:latest
+docker push localhost:5000/server-public-user:latest
+
 
 echo -e ${RED}'[DEBUG]'${NC}' Up Docker Compose'
 docker-compose up -d
