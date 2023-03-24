@@ -30,5 +30,5 @@ docker build -t "localhost:5000/frontend-hash:latest" .
 docker push localhost:5000/frontend-hash:latest
 
 docker run -d -p 5010:80 \
-     --name frontend-art \
+     --name frontend-hash \
         localhost:5000/frontend-hash:latest
