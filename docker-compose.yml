@@ -3,6 +3,8 @@ services:
   service-postgres15:
     image: postgres:15-alpine
     restart: always
+    ports:
+      - "5432:5432"
     volumes:
       - /volumenes/vol_postgresql:/var/lib/postgresql/data
     environment: 

@@ -10,6 +10,8 @@ rm -rf server-front/*
 
 [ "$#" -ge 1 ] || { echo 'Usage: generate-front.sh <PATH_GIT_PROYECT>'; exit 1; }
 echo $#
+echo -e ${RED}'[DEBUG]'${NC}' Git checkout main' ${PATH_PROYECT}
+git -C ${PATH_PROYECT} checkout main
 
 echo -e ${RED}'[DEBUG]'${NC}' Git pull proyect' ${PATH_PROYECT}
 git -C ${PATH_PROYECT} pull
