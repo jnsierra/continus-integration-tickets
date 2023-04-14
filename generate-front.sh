@@ -33,4 +33,5 @@ docker push localhost:5000/frontend-hash:latest
 
 docker run -d -p 5010:80 \
      --name frontend-hash \
-        localhost:5000/frontend-hash:latest
+        localhost:5000/frontend-hash:latest 
+
