@@ -5,7 +5,7 @@ Proyecto con el cual se puede desplegar el backend de tickets
 * [Configuración Docker](#configuración-docker)
 * [Volumenes](#volumenes)
 * [Configuración url volumenes](#configuración-url-volumenes)
-* [Arranque](#arranque)
+* [Arranque Backend](#arranque-backend)
 
 ## Configuración Docker
 Se debe realizar una pequeña configuración para permitir el transporte de información por medio de http al registry
@@ -42,7 +42,7 @@ touch <CUSTOM_CONFIG>.conf
 VOL_PG=<PATH_VOL_POSTGRES>
 VOL_REPO=<PATH_VOL_REPO>
 ```
-## Arranque
+## Arranque Backend
 Ejecutamos el siguiente comando
 ```bash
 ./generate-artifact.sh <PATH_GIT_BACK_PROYECT> <PATH_VOL_REGISTRY> <NAME_FILE_VAR_CONFIG_DOCKER_COMPOSE> <PORT_REGISTRY>
