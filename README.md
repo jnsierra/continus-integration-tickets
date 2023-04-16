@@ -44,6 +44,6 @@ VOL_REPO=<PATH_VOL_REPO>
 ```
 ## Arranque
 Ejecutamos el siguiente comando
-```
-generate-artifact.sh <PATH_GIT_BACK_PROYECT> <PATH_VOL_REGISTRY> <NAME_FILE_VAR_CONFIG_DOCKER_COMPOSE> <PORT_REGISTRY>
+```bash
+./generate-artifact.sh <PATH_GIT_BACK_PROYECT> <PATH_VOL_REGISTRY> <NAME_FILE_VAR_CONFIG_DOCKER_COMPOSE> <PORT_REGISTRY>
 ```
