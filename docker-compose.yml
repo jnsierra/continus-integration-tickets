@@ -6,7 +6,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - /volumenes/vol_postgresql:/var/lib/postgresql/data
+      - ${VOL_PG}:/var/lib/postgresql/data
     environment: 
       POSTGRES_USER: hashticket
       POSTGRES_DB: tickets
@@ -47,7 +47,7 @@ services:
      - service-postgres15
      - server-discovery
     volumes:
-     - /volumenes/vol_repository:/opt/repository
+     - ${VOL_REPO}:/opt/repository
   service-public-user:
     image: localhost:5000/server-public-user:latest
     environment:
@@ -58,4 +58,4 @@ services:
      - service-postgres15
      - server-discovery
     volumes:
-     - /volumenes/vol_repository:/opt/repository
+     - ${VOL_REPO}:/opt/repository

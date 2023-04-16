@@ -1,5 +1,7 @@
 #!/bin/bash
 PATH_PROYECT=$1
+PATH_VOL_REG=$2
+FILE_CONFIG=$3
 
 RED='\033[0;31m'
 NC='\033[0m' # No Color
@@ -8,7 +10,7 @@ echo -e ${RED}'[DEBUG]'${NC}' Stop registry'
 docker stop repo-api
 docker rm repo-api
 echo -e ${RED}'[DEBUG]'${NC}' Run registry'
-docker run -d --name repo-api -p 5000:5000 -v /volumenes/vol_registry:/var/lib/registry registry:latest
+docker run -d --name repo-api -p 5000:5000 -v ${PATH_VOL_REG}:/var/lib/registry registry:latest
 
 [ "$#" -ge 1 ] || { echo 'Usage: generate-artifact.sh <PATH_GIT_PROYECT>'; exit 1; } 
 echo $#
@@ -84,4 +86,4 @@ docker push localhost:5000/server-public-user:latest
 
 
 echo -e ${RED}'[DEBUG]'${NC}' Up Docker Compose'
-docker-compose up -d
+docker-compose --env-file ./conf/${FILE_CONFIG}  up -d
