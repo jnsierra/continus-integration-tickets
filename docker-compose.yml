@@ -4,7 +4,7 @@ services:
     image: postgres:15-alpine
     restart: always
     ports:
-      - "5432:5432"
+      - "${PORT_EXPOSE_POSTGRES}:5432"
     volumes:
       - ${VOL_PG}:/var/lib/postgresql/data
     environment: 
