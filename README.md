@@ -7,6 +7,7 @@ Proyecto con el cual se puede desplegar el backend de tickets
 * [Volumenes](#volumenes)
 * [Configuración url volumenes](#configuración-url-volumenes)
 * [Arranque Backend](#arranque-backend)
+* [Arrancamos Frontend](#arrancamos-frontend)
 
 ## Configuración Docker
 Se debe realizar una pequeña configuración para permitir el transporte de información por medio de http al registry
@@ -49,3 +50,15 @@ Ejecutamos el siguiente comando
 ./generate-artifact.sh <PATH_GIT_BACK_PROYECT> <PATH_VOL_REGISTRY> <NAME_FILE_VAR_CONFIG_DOCKER_COMPOSE> <PORT_REGISTRY>
 ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Arrancamos Frontend
+Ejecutamos el siguiente comando
+```bash
+./generate-front.sh  <PATH_GIT_FRONTEND_PROYECT> <NAME_PROYECT> <PORT_REGISTRY>
+```
+**NOTA:** Se debe tener en cuenta que el campo `<PORT_REGISTRY>` del arranque para backend y frontend debe ser el mismo
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
