@@ -9,6 +9,7 @@ Proyecto con el cual se puede desplegar el backend de tickets
 * [Configuración url volumenes](#configuración-url-volumenes)
 * [Arranque Backend](#arranque-backend)
 * [Arrancamos Frontend](#arrancamos-frontend)
+* [Instalacion Java y Maven](#instalacion-java-y-maven)
 
 ## Configuración Docker
 Se debe realizar una pequeña configuración para permitir el transporte de información por medio de http al registry
@@ -59,6 +60,15 @@ Ejecutamos el siguiente comando
 ./generate-front.sh  <PATH_GIT_FRONTEND_PROYECT> <NAME_PROYECT> <PORT_REGISTRY>
 ```
 **NOTA:** Se debe tener en cuenta que el campo `<PORT_REGISTRY>` del arranque para backend y frontend debe ser el mismo
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Instalacion Java y Maven
+En el caso que no se tenga instalado Java y Maven se debe correr los siguientes comandos.
+```bash
+sudo ./install_maven.sh
+source /etc/profile.d/maven.sh
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
