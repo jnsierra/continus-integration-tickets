@@ -44,6 +44,7 @@ touch <CUSTOM_CONFIG>.conf
 ```bash
 VOL_PG=<PATH_VOL_POSTGRES>
 VOL_REPO=<PATH_VOL_REPO>
+PORT_EXPOSE_POSTGRES=<PORT_EXPOSE>
 ```
 ## Arranque Backend
 Ejecutamos el siguiente comando
