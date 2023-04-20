@@ -10,6 +10,7 @@ Proyecto con el cual se puede desplegar el backend de tickets
 * [Arranque Backend](#arranque-backend)
 * [Arrancamos Frontend](#arrancamos-frontend)
 * [Instalacion Java y Maven](#instalacion-java-y-maven)
+* [Monitoreo con Metricbeat](#monitoreo-con-metricbeat)
 
 ## Configuración Docker
 Se debe realizar una pequeña configuración para permitir el transporte de información por medio de http al registry
@@ -71,6 +72,44 @@ source /etc/profile.d/maven.sh
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## Monitoreo con Metricbeat
+
+### Crear servicio en el sistema operativo para subir el servicio
+
+1. Crear un archivo en la ruta `/etc/systemd/system/` con el siguiente comando
+```bash
+sudo touch /etc/systemd/system/metricbeat.service
+```
+2. El contenido sera el siguiente
+```bash
+[Unit]
+Description=Metricbeat
+Documentation=https://www.elastic.co/guide/en/beats/metricbeat/current/index.html
+
+[Service]
+ExecStart=<METRIC-HOME>/metricbeat -c <METRIC-HOME>/metricbeat.yml
+Restart=always
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
+```
+3. Habilita el servicio Metricbeat para que se inicie automáticamente al arrancar el sistema:
+```bash
+sudo systemctl enable metricbeat.service
+```
+4. Inicia el servicio Metricbeat:
+```bash
+sudo systemctl start metricbeat.service
+```
+5. Valida su estado
+```bash
+sudo systemctl status metricbeat.service
+```
+
 
 
 
