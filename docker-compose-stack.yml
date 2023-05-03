@@ -13,13 +13,13 @@ services:
       POSTGRES_PASSWORD: 12345678
       PGDATA: /var/lib/postgresql/data/pgdata
   server-discovery:
-    image: localhost:5011/server-discovery:latest
+    image: 192.168.0.30:5011/server-discovery:latest
     ports:
      - "1111:1111"
     environment:
      - PROFILE_JAR=prod
   service-gateway:
-    image: localhost:5011/server-gateway:latest
+    image: 192.168.0.30:5011/server-gateway:latest
     ports:
      - "5004:5004"
     environment:
@@ -29,7 +29,7 @@ services:
      - service-postgres15
      - server-discovery
   service-acceso-datos:
-    image: localhost:5011/server-acceso-datos:latest
+    image: 192.168.0.30:5011/server-acceso-datos:latest
     environment:
      - PROFILE_JAR=prod
      - SERVER_DISCOVERY=server-discovery
@@ -37,8 +37,14 @@ services:
     depends_on:
      - service-postgres15
      - server-discovery
+    volumes:
+     - /volumenes/vol_logs:/opt/logs
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.hostname == node01]
   service-business:
-    image: localhost:5011/server-business:latest
+    image: 192.168.0.30:5011/server-business:latest
     environment:
      - PROFILE_JAR=prod
      - SERVER_DISCOVERY=server-discovery
@@ -48,8 +54,13 @@ services:
      - server-discovery
     volumes:
      - /volumenes/vol_repository:/opt/repository
+     - /volumenes/vol_logs:/opt/logs
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.hostname == node02]
   service-public-user:
-    image: localhost:5011/server-public-user:latest
+    image: 192.168.0.30:5011/server-public-user:latest
     environment:
      - PROFILE_JAR=prod
      - SERVER_DISCOVERY=server-discovery
@@ -59,3 +70,8 @@ services:
      - server-discovery
     volumes:
      - /volumenes/vol_repository:/opt/repository
+     - /volumenes/vol_logs:/opt/logs
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.hostname == node01]

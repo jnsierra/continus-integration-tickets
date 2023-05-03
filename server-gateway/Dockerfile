@@ -1,4 +1,8 @@
 FROM amazoncorretto:17-alpine
+
+RUN apk add --no-cache tzdata
+ENV TZ=America/Bogota
+
 RUN apk --no-cache add curl
 ADD jar/api-gateway.jar /opt/
 ADD wait-for-discovery.sh /opt/

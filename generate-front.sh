@@ -25,16 +25,16 @@ echo -e ${RED} '[DEBUG]' ${NC} ' Paramos el contenedor de front y lo borro '
 docker stop frontend-hash
 docker rm frontend-hash
 echo -e ${RED} '[DEBUG]' ${NC} ' Borramos la imagen del docker'
-docker rmi localhost:${PORT_REGISTRY}/frontend-hash:latest
+docker rmi 192.168.0.30:${PORT_REGISTRY}/frontend-hash:latest
 echo -e ${RED} '[DEBUG]' ${NC} ' Construimos la imagen del docker' 
 cd server-front/${NAME_PROYECT}
 pwd
-docker build -t "localhost:${PORT_REGISTRY}/frontend-hash:latest" .
+docker build -t "192.168.0.30:${PORT_REGISTRY}/frontend-hash:latest" .
 
 echo -e ${RED} '[DEBUG]' ${NC} 'Hacemos push a la imagen'
-docker push localhost:${PORT_REGISTRY}/frontend-hash:latest
+docker push 192.168.0.30:${PORT_REGISTRY}/frontend-hash:latest
 echo -e ${RED} '[DEBUG]' ${NC} 'Hacemos run'
 docker run -d -p 5010:80 \
      --name frontend-hash \
-        localhost:${PORT_REGISTRY}/frontend-hash:latest 
+        192.168.0.30:${PORT_REGISTRY}/frontend-hash:latest 
 

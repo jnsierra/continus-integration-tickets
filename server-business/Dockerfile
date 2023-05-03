@@ -3,6 +3,10 @@ RUN apk --no-cache add curl
 ADD jar/api-business-0.0.1-SNAPSHOT.jar /opt/
 ADD execute-jar.sh /opt/
 ADD wait-for-discovery.sh /opt/
+
+RUN apk add --no-cache tzdata
+ENV TZ=America/Bogota
+
 WORKDIR /opt/
 #USER root
 RUN chmod +x execute-jar.sh  

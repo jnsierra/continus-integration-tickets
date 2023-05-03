@@ -40,29 +40,29 @@ cp ${PATH_PROYECT}/api-business/target/api-business-0.0.1-SNAPSHOT.jar ./server-
 cp ${PATH_PROYECT}/api-public-users/target/api-public-users-0.0.1-SNAPSHOT.jar ./server-public-user/jar/
 
 echo -e ${RED}'[DEBUG]'${NC}' Bajo el servicio de docker-compose '
-docker stack rm api-service
+docker stack rm ticket-api
 ## docker-compose --env-file ./conf/${FILE_CONFIG} stop
 ## echo -e ${RED}'[DEBUG]'${NC}' Borro los contenedores'
 ## docker-compose --env-file ./conf/${FILE_CONFIG} rm -f
 
 echo -e ${RED}'[DEBUG]'${NC}' Delete images'
-docker rmi localhost:${PORT_REGISTRY}/server-discovery:latest
-docker rmi localhost:${PORT_REGISTRY}/server-gateway:latest
-docker rmi localhost:${PORT_REGISTRY}/server-acceso-datos:latest
-docker rmi localhost:${PORT_REGISTRY}/server-business:latest
-docker rmi localhost:${PORT_REGISTRY}/server-public-user:latest
+docker rmi 192.168.0.30:${PORT_REGISTRY}/server-discovery:latest
+docker rmi 192.168.0.30:${PORT_REGISTRY}/server-gateway:latest
+docker rmi 192.168.0.30:${PORT_REGISTRY}/server-acceso-datos:latest
+docker rmi 192.168.0.30:${PORT_REGISTRY}/server-business:latest
+docker rmi 192.168.0.30:${PORT_REGISTRY}/server-public-user:latest
 
 echo -e ${RED}'[DEBUG]'${NC}' Build images '
 cd server-discovery
-docker build -t "localhost:${PORT_REGISTRY}/server-discovery:latest" .
+docker build -t "192.168.0.30:${PORT_REGISTRY}/server-discovery:latest" .
 cd ..
 echo -e ${RED}'[DEBUG]'${NC}' Build gateway image '
 cd server-gateway
-docker build -t "localhost:${PORT_REGISTRY}/server-gateway:latest" .
+docker build -t "192.168.0.30:${PORT_REGISTRY}/server-gateway:latest" .
 cd ..
 echo -e ${RED}'[DEBUG]'${NC}' Construir imagen de acceso a datos'
 cd server-acceso-datos
-docker build -t "localhost:${PORT_REGISTRY}/server-acceso-datos:latest" .
+docker build -t "192.168.0.30:${PORT_REGISTRY}/server-acceso-datos:latest" .
 cd ..
 
 echo -e ${RED}'[DEBUG]'${NC}' Construccion imagen de public '
@@ -70,7 +70,7 @@ echo -e ${RED}'*****************************'${NC}
 pwd
 echo -e ${RED}'*****************************'${NC}
 cd server-public-user
-docker build -t "localhost:${PORT_REGISTRY}/server-public-user:latest" .
+docker build -t "192.168.0.30:${PORT_REGISTRY}/server-public-user:latest" .
 cd ..
 
 echo -e ${RED}'[DEBUG]'${NC}' Construccion imagen de business '
@@ -78,16 +78,16 @@ echo -e ${RED}'*****************************'${NC}
 pwd
 echo -e ${RED}'*****************************'${NC}
 cd server-business
-docker build -t "localhost:${PORT_REGISTRY}/server-business:latest" .
+docker build -t "192.168.0.30:${PORT_REGISTRY}/server-business:latest" .
 cd ..
 
 
 echo -e ${RED}'[DEBUG]'${NC}' Push image services'
-docker push localhost:${PORT_REGISTRY}/server-discovery:latest
-docker push localhost:${PORT_REGISTRY}/server-gateway:latest
-docker push localhost:${PORT_REGISTRY}/server-acceso-datos:latest
-docker push localhost:${PORT_REGISTRY}/server-business:latest
-docker push localhost:${PORT_REGISTRY}/server-public-user:latest
+docker push 192.168.0.30:${PORT_REGISTRY}/server-discovery:latest
+docker push 192.168.0.30:${PORT_REGISTRY}/server-gateway:latest
+docker push 192.168.0.30:${PORT_REGISTRY}/server-acceso-datos:latest
+docker push 192.168.0.30:${PORT_REGISTRY}/server-business:latest
+docker push 192.168.0.30:${PORT_REGISTRY}/server-public-user:latest
 
 echo -e ${RED}'[DEBUG]'${NC}' Up Docker Compose'
 docker stack deploy -c docker-compose-stack.yml ticket-api

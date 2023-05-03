@@ -10,6 +10,9 @@ CMD wait-for-postgres.sh $SERVER_BD
 # Second stage 
 FROM amazoncorretto:17-alpine
 
+RUN apk add --no-cache tzdata
+ENV TZ=America/Bogota
+
 RUN apk --no-cache add curl
 ADD jar/api-acceso-datos-0.0.1-SNAPSHOT.jar /opt/
 ADD wait-for-discovery.sh /opt/
