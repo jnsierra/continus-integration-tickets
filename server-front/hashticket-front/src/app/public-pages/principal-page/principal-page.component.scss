@@ -1,0 +1,17 @@
+
+
+//Pantallas pequeñas
+@media (max-width: 767px) {
+    .container-cards {
+        width: 96;
+        margin-left: 2%;
+    }
+}
+
+//Pantallas grandes
+@media (min-width: 767px) {
+    .container-cards {
+        width: 80%;
+        margin-left: 10%;
+    }
+}

@@ -1,0 +1,53 @@
+<br />
+<div class="px-10">
+    <h1 class="py-5 text-blue-600/100">{{fullEvent.name | uppercase}}</h1>
+    <div class="grid grid-cols-2 gap-1">
+        <div *ngIf="eventImages.length > 0">
+            <img [src]="eventImages[0].base64" />
+        </div>
+        <div>
+            <h2 class="mb-8">Información general</h2>
+            <div class="grid xl:grid-cols-7 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3">
+                <div class="text-blue-600/100 text-lg">Lugar:</div>
+                <div class="text-lg">{{fullEvent.place}}</div>
+            </div>
+            <div class="grid xl:grid-cols-7 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3">
+                <div class="text-blue-600/100 text-lg">Ciudad:</div>
+                <div class="text-lg">{{fullEvent.cityName}}</div>
+            </div>
+            <div class="grid xl:grid-cols-7 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3">
+                <div class="text-blue-600/100 text-lg">Fecha:</div>
+                <div class="text-lg">{{fullEvent.date | date : "d/M/y"}}</div>
+            </div>
+            <div class="grid xl:grid-cols-7 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3">
+                <div class="text-blue-600/100 text-lg">Hora:</div>
+                <div class="text-lg">{{fullEvent.time}}</div>
+            </div>
+            <div class="grid xl:grid-cols-7 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3">
+                <div class="text-blue-600/100 text-lg">Categoría:</div>
+                <div class="text-lg">{{fullEvent.categoryEventName}}</div>
+            </div>
+            <!-- <p class="text-blue-600/100">Lugar: &nbsp;</p>
+            <p>{{fullEvent.place}}</p>
+            <p class="text-blue-600/100">Ciudad: &nbsp;</p>
+            <p>{{fullEvent.cityName}}</p>
+            <p class="text-blue-600/100">Fecha: &nbsp;</p>
+            <p>{{fullEvent.date | date : "d/M/y"}}</p>
+            <p class="text-blue-600/100">Hora: &nbsp;</p>
+            <p>{{fullEvent.time}}</p>
+            <p class="text-blue-600/100">Categoría: &nbsp;</p>
+            <p>{{fullEvent.categoryEventName}}</p> -->
+            <br> 
+            <div *ngFor="let event of fullEvent.configEvents">
+                <div *ngIf="event.numberOfTicketsSold < event.numberOfTickets; then thenTemplate; else elseTemplate">
+                </div>
+                <ng-template #thenTemplate>
+                    <button mat-raised-button color="warn" (click)="buyTicket()">Comprar función {{event.eventDate | date : 'MMMM  d'}} </button><br>
+                 </ng-template>
+                 <ng-template #elseTemplate>
+                    <button mat-raised-button color="warn" disabled>Comprar función {{event.eventDate | date : 'MMMM  d'}} </button><br>
+                  </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

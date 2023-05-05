@@ -13,13 +13,13 @@ services:
       POSTGRES_PASSWORD: 12345678
       PGDATA: /var/lib/postgresql/data/pgdata
   server-discovery:
-    image: localhost:5000/server-discovery:latest
+    image: localhost:${PORT_REGISTRY}/server-discovery:latest
     ports:
      - "1111:1111"
     environment:
      - PROFILE_JAR=prod
   service-gateway:
-    image: localhost:5000/server-gateway:latest
+    image: localhost:${PORT_REGISTRY}/server-gateway:latest
     ports:
      - "5004:5004"
     environment:
@@ -29,7 +29,7 @@ services:
      - service-postgres15
      - server-discovery
   service-acceso-datos:
-    image: localhost:5000/server-acceso-datos:latest
+    image: localhost:${PORT_REGISTRY}/server-acceso-datos:latest
     environment:
      - PROFILE_JAR=prod
      - SERVER_DISCOVERY=server-discovery
@@ -37,8 +37,10 @@ services:
     depends_on:
      - service-postgres15
      - server-discovery
+    volumes:
+     - /volumenes/vol_logs:/opt/logs
   service-business:
-    image: localhost:5000/server-business:latest
+    image: localhost:${PORT_REGISTRY}/server-business:latest
     environment:
      - PROFILE_JAR=prod
      - SERVER_DISCOVERY=server-discovery
@@ -48,8 +50,9 @@ services:
      - server-discovery
     volumes:
      - ${VOL_REPO}:/opt/repository
+     - /volumenes/vol_logs:/opt/logs
   service-public-user:
-    image: localhost:5000/server-public-user:latest
+    image: localhost:${PORT_REGISTRY}/server-public-user:latest
     environment:
      - PROFILE_JAR=prod
      - SERVER_DISCOVERY=server-discovery
@@ -59,3 +62,4 @@ services:
      - server-discovery
     volumes:
      - ${VOL_REPO}:/opt/repository
+     - /volumenes/vol_logs:/opt/logs

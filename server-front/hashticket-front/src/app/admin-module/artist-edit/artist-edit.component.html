@@ -1,0 +1,44 @@
+<br />
+<form #f="ngForm" (ngSubmit)="executeAction(f)">
+  <mat-card width="100%" style="margin-left: 20%; margin-right: 20%">
+    <mat-card-header>
+      <mat-card-title>Artistas</mat-card-title>
+      <mat-card-subtitle>{{insert ? 'Creación' : 'Actualización'}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-grid-list cols="1" rowHeight="100px">
+        <mat-grid-tile>
+          <mat-form-field class="full-width">
+            <mat-label>Nombre</mat-label>
+            <input class="inputs-form" type="text" name="name" matInput placeholder="Nombre del artista"
+              [(ngModel)]="artist.name" required />
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field class="full-width">
+            <mat-label>Descripción</mat-label>
+            <input class="inputs-form" type="text" name="description" matInput placeholder="Descripción del artista"
+              [(ngModel)]="artist.description" required />
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>Banda musical</mat-label>
+            <mat-select [(ngModel)]="artist.musicBandId" name="musicBandId">
+              <mat-option *ngFor="let msband of musicBand" [value]="msband.id">
+                {{ msband.name }}
+              </mat-option>
+            </mat-select> </mat-form-field><br />
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="butonEnabled">{{insert ? constants.BUTTON_CREATE :
+        constants.BUTTON_UPDATE}}</button> &nbsp;
+      <button mat-raised-button color="primary" routerLink="/homeAdmin" color="warn">
+        {{constants.BUTTON_CANCEL}}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+<br />

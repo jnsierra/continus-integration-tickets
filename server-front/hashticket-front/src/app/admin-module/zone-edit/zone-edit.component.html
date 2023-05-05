@@ -1,0 +1,44 @@
+<br />
+<form #f="ngForm" (ngSubmit)="executeAction(f)">
+    <mat-card width="100%" style="margin-left: 20%; margin-right: 20%">
+        <mat-card-header>
+            <mat-card-title>Zonas</mat-card-title>
+            <mat-card-subtitle>{{insert ? 'Creación' : 'Actualización'}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-grid-list cols="1" rowHeight="100px">
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>Nombre</mat-label>
+                        <input class="inputs-form" type="text" name="name" matInput placeholder="Nombre de la zona"
+                            [(ngModel)]="zone.name" required />
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>Descripción</mat-label>
+                        <input class="inputs-form" type="text" name="description" matInput
+                            placeholder="Descripción de la zona" [(ngModel)]="zone.description" required />
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Categoría</mat-label>
+                        <mat-select [(ngModel)]="zone.categoryId" name="musicBandId">
+                            <mat-option *ngFor="let cat of category" [value]="cat.id">
+                                {{ cat.name }}
+                            </mat-option>
+                        </mat-select> </mat-form-field><br />
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit" [disabled]="butonEnabled">{{insert ? 'INSERTAR' :
+                'ACTUALIZAR'}}</button> &nbsp;
+            <button mat-raised-button color="primary" routerLink="/homeAdmin" color="warn">
+                CANCELAR
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</form>
+<br />

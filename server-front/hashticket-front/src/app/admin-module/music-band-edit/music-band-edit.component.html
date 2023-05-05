@@ -1,0 +1,38 @@
+<br />
+<form #f="ngForm" (ngSubmit)="executeAction(f)">
+  <mat-card width="100%" style="margin-left: 20%; margin-right: 20%">
+    <mat-card-header>
+      <mat-card-title>Bandas</mat-card-title>
+      <mat-card-subtitle>{{insert ? 'Creación' : 'Actualización'}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-grid-list cols="1" rowHeight="100px">
+        <mat-grid-tile>
+          <mat-form-field class="full-width">
+            <mat-label>Nombre</mat-label>
+            <input class="inputs-form" type="text" name="name" matInput placeholder="Nombre de la banda"
+              [(ngModel)]="musicBand.name" required />
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>Presentaciones</mat-label>
+            <mat-select [(ngModel)]="musicBand.presentationId" name="presentationId">
+              <mat-option *ngFor="let present of presentation" [value]="present.id">
+                {{ present.name }}
+              </mat-option>
+            </mat-select> </mat-form-field><br />
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="butonEnabled">{{insert ? 'INSERTAR' :
+        'ACTUALIZAR'}}</button>
+      &nbsp;
+      <button mat-raised-button color="primary" routerLink="/homeAdmin" color="warn">
+        CANCELAR
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+<br />

@@ -33,11 +33,11 @@ mvn -f ${PATH_PROYECT}/pom.xml clean
 mvn -f ${PATH_PROYECT}/pom.xml install
 
 echo -e ${RED}'[DEBUG]'${NC}' Copy jar services '
-cp ${PATH_PROYECT}/api-service-discovery/target/api-service-discovery.jar ./server-discovery/jar/
-cp ${PATH_PROYECT}/api-gateway/target/api-gateway.jar ./server-gateway/jar/
-cp ${PATH_PROYECT}/api-acceso-datos/target/api-acceso-datos-0.0.1-SNAPSHOT.jar ./server-acceso-datos/jar/
-cp ${PATH_PROYECT}/api-business/target/api-business-0.0.1-SNAPSHOT.jar ./server-business/jar/
-cp ${PATH_PROYECT}/api-public-users/target/api-public-users-0.0.1-SNAPSHOT.jar ./server-public-user/jar/
+cp ${PATH_PROYECT}/api-service-discovery/target/api-service-discovery*.jar ./server-discovery/jar/
+cp ${PATH_PROYECT}/api-gateway/target/api-gateway*.jar ./server-gateway/jar/
+cp ${PATH_PROYECT}/api-acceso-datos/target/api-acceso-datos*.jar ./server-acceso-datos/jar/
+cp ${PATH_PROYECT}/api-business/target/api-business**.jar ./server-business/jar/
+cp ${PATH_PROYECT}/api-public-users/target/api-public-users*.jar ./server-public-user/jar/
 
 echo -e ${RED}'[DEBUG]'${NC}' Bajo el servicio de docker-compose '
 docker-compose --env-file ./conf/${FILE_CONFIG} stop
@@ -56,7 +56,7 @@ cd server-discovery
 docker build -t "localhost:${PORT_REGISTRY}/server-discovery:latest" .
 cd ..
 cd server-gateway
-docker build -t "localhost:{PORT_REGISTRY}/server-gateway:latest" .
+docker build -t "localhost:${PORT_REGISTRY}/server-gateway:latest" .
 cd ..
 echo -e ${RED}'[DEBUG]'${NC}' Construir imagen de acceso a datos'
 cd server-acceso-datos

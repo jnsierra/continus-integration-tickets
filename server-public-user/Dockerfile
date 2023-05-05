@@ -13,9 +13,9 @@ FROM amazoncorretto:17-alpine
 RUN apk add --no-cache tzdata
 ENV TZ=America/Bogota
 RUN apk --no-cache add curl
-ADD jar/api-public-users-0.0.1-SNAPSHOT.jar /opt/
-ADD wait-for-discovery.sh /opt/
-ADD execute-jar.sh /opt/
+COPY jar/api-public-users*.jar /opt/
+COPY wait-for-discovery.sh /opt/
+COPY execute-jar.sh /opt/
 
 WORKDIR /opt/
 

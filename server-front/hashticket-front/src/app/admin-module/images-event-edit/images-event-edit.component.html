@@ -1,0 +1,62 @@
+<br />
+<app-event-card [eventId]="eventImages.eventId"></app-event-card>
+<br />
+<br />
+<form #f="ngForm" (ngSubmit)="ejecutarAccion( f )">
+    <mat-card width="100%" style="margin-left: 20%;margin-right: 20%;">
+        <mat-card-header>
+            <mat-card-title>Imagenes de Eventos</mat-card-title>
+            <mat-card-subtitle>
+                <span *ngIf="createAccion">
+                    Creación
+                </span>
+                <span *ngIf="!createAccion">
+                    Actualización {{eventImages.id}}
+                </span>
+            </mat-card-subtitle>
+        </mat-card-header>
+        <br />
+        <mat-card-content>
+            <mat-form-field class="full-width">
+                <mat-label>Descripción</mat-label>
+                <mat-error *ngIf="f.submitted && f.controls['description'].invalid ">
+                    Se requiere este campo
+                </mat-error>
+                <input class="inputs-form" type="text" name="description" matInput required
+                    placeholder="Descripción de la imagen:" [(ngModel)]="eventImages.description" />
+            </mat-form-field><br />
+            <mat-form-field class="full-width">
+                <mat-select name="typeImage" [(ngModel)]="eventImages.typeImages">
+                    <mat-option value="-1">Seleccione una opcion</mat-option>
+                    <mat-option value="PRINCIPAL">PRINCIPAL</mat-option>
+                    <mat-option value="MINIATURE">MINIATURE</mat-option>
+                </mat-select>
+            </mat-form-field><br />
+            <div>
+                <input type="file" class="file-upload" (change)="onFileSelected($event)" accept="image/jpeg" #fileUpload
+                    class="file-input" />
+                <div class="file-upload">
+
+                    {{fileName || "Imagen no cargada aún"}}
+
+                    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div *ngIf="!createAccion">
+                Imagen Actual
+                <mat-icon aria-hidden="false" aria-label="image" fontIcon="image_on"
+                    (click)="showImages(eventImages.id)"></mat-icon>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!enableButton">{{createAccion ?
+                'INSERTAR' : 'ACTUALIZAR'}}</button> &nbsp;
+            <button mat-raised-button color="primary" routerLink="/homeAdmin" color="warn"
+                [disabled]="!enableButton">CANCELAR</button>
+        </mat-card-actions>
+    </mat-card>
+</form>

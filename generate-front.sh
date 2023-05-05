@@ -2,6 +2,7 @@
 PATH_PROYECT=$1
 NAME_PROYECT=$2
 PORT_REGISTRY=$3
+SERVER_REGISTRY=$4 
 
 RED='\033[0;31m'
 NC='\033[0m' # No Color
@@ -9,7 +10,7 @@ NC='\033[0m' # No Color
 echo -e ${RED}'[DEBUG]'${NC}' Borrar archivos del front'
 rm -rf server-front/*
 
-[ "$#" -eq 3 ] || { echo 'Usage: generate-front.sh <PATH_GIT_PROYECT> <NAME_PROYECT> <PORT_REGISTRY>'; exit 1; }
+[ "$#" -eq 4 ] || { echo 'Usage: generate-front.sh <PATH_GIT_PROYECT> <NAME_PROYECT> <PORT_REGISTRY> <IP_SERVER_REGISTRY>'; exit 1; }
 echo $#
 echo -e ${RED}'[DEBUG]'${NC}' Git checkout main' ${PATH_PROYECT}
 git -C ${PATH_PROYECT} checkout main
@@ -25,16 +26,16 @@ echo -e ${RED} '[DEBUG]' ${NC} ' Paramos el contenedor de front y lo borro '
 docker stop frontend-hash
 docker rm frontend-hash
 echo -e ${RED} '[DEBUG]' ${NC} ' Borramos la imagen del docker'
-docker rmi 192.168.0.30:${PORT_REGISTRY}/frontend-hash:latest
+docker rmi ${SERVER_REGISTRY}:${PORT_REGISTRY}/frontend-hash:latest
 echo -e ${RED} '[DEBUG]' ${NC} ' Construimos la imagen del docker' 
 cd server-front/${NAME_PROYECT}
 pwd
-docker build -t "192.168.0.30:${PORT_REGISTRY}/frontend-hash:latest" .
+docker build -t "${SERVER_REGISTRY}:${PORT_REGISTRY}/frontend-hash:latest" .
 
 echo -e ${RED} '[DEBUG]' ${NC} 'Hacemos push a la imagen'
-docker push 192.168.0.30:${PORT_REGISTRY}/frontend-hash:latest
+docker push ${SERVER_REGISTRY}:${PORT_REGISTRY}/frontend-hash:latest
 echo -e ${RED} '[DEBUG]' ${NC} 'Hacemos run'
 docker run -d -p 5010:80 \
      --name frontend-hash \
-        192.168.0.30:${PORT_REGISTRY}/frontend-hash:latest 
+        ${SERVER_REGISTRY}:${PORT_REGISTRY}/frontend-hash:latest 
 

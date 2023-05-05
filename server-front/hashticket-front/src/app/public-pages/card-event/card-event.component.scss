@@ -1,0 +1,31 @@
+mat-card-content {
+  background: #3F51B5;
+}
+
+mat-card-actions {
+  background: #3F51B5;
+  justify-content: space-around;
+}
+
+mat-card-title {
+  background: #3F51B5;
+  color: white;
+}
+
+mat-grid-tile {
+    font-size: 20px;
+    font-family: "Telefonica-Bold";
+    display: block;
+    line-height: 40px;
+    color: white; 
+}
+
+mat-card img{
+  object-fit: cover;  
+  width: 100%; 
+  max-height: 355px;
+  // max-height: 425px;
+}
+.dateEvent{
+  border-right: white;
+}

@@ -1,0 +1,86 @@
+<br />
+<form #f="ngForm" (ngSubmit)="executeAction(f)">
+    <mat-card width="100%" style="margin-left: 20%; margin-right: 20%">
+        <mat-card-header>
+            <mat-card-title>Presentaciones</mat-card-title>
+            <mat-card-subtitle>
+                <span *ngIf="insertAccion">Insertar</span>
+                <span *ngIf="!insertAccion">Actualizar</span>
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field class="full-width">
+                <mat-label>Zona</mat-label>
+                <mat-error *ngIf="f.submitted && f.controls['zone'].invalid ">
+                    Zona es obligatorio
+                </mat-error>
+                <mat-select [(ngModel)]="zoneConfigEvent.zoneId" name="zone" required>
+                    <mat-option *ngFor="let zn of zones" [value]="zn.id">
+                        {{zn.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field><br />
+
+            <mat-form-field appearance="fill">
+                <mat-label>Eventos</mat-label>
+                <mat-select [(ngModel)]="eventId" (selectionChange)="getPresentationsByEvent()" name="event" required>
+                    <mat-option *ngFor="let event of events" [value]="event.id">
+                        {{event.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field><br />
+            <mat-form-field appearance="fill">
+                <mat-label>Presentation</mat-label>
+                <mat-select [(ngModel)]="presentationId" (selectionChange)="getConfigEvents()" name="presentation"
+                    required>
+                    <mat-option *ngFor="let pr of presentations" [value]="pr.id">
+                        {{pr.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field><br />
+            <div *ngIf="configEvent">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha del evento</th>
+                            <th>Apertura de puertas</th>
+                            <th>Número de tickets del evento</th>
+                            <th>Número de tickets vendidos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{configEvent.eventDate}}</td>
+                            <td>{{configEvent.doorOpening}}</td>
+                            <td>{{configEvent.numberOfTickets}}</td>
+                            <td>{{configEvent.numberOfTicketsSold}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <mat-form-field appearance="fill">
+                <mat-label>Número de tickets de la zona y categoria</mat-label>
+                <input class="inputs-form" type="text" name="number_of_tickets" matInput placeholder="Número de tickets"
+                    [(ngModel)]="zoneConfigEvent.numberOfTickets" required />
+            </mat-form-field><br />
+            <mat-form-field appearance="fill">
+                <mat-label>Costo por ticket</mat-label>
+                <mat-error *ngIf="f.submitted && f.controls['cost'].invalid ">
+                    Costo es obligatorio
+                </mat-error>
+                <input class="inputs-form" type="number" name="cost" matInput placeholder="costo"
+                    [(ngModel)]="zoneConfigEvent.cost" required />
+            </mat-form-field><br />
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit" [disabled]="botonInactive">
+                <span *ngIf="insertAccion">Insertar</span>
+                <span *ngIf="!insertAccion">Actualizar</span>
+            </button>
+            &nbsp;
+            <button mat-raised-button color="primary" (click)="cancelar()" color="warn" [disabled]="botonInactive">
+                CANCELAR
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</form>
